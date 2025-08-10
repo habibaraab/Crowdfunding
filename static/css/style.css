@@ -154,84 +154,7 @@ body.page-home main.main-content {
     border: 1px solid #f5c6cb;
 }
 
-.main-header {
-    width: 100%;
-    padding: 0 4%;
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    transition: height 0.4s ease;
-    background-color: #ffffff;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.07);
-}
 
-.main-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 75px;
-}
-
-.nav-group-left {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-decoration: none;
-}
-
-.logo-icon {
-    width: 32px;
-    height: 32px;
-    stroke-width: 1.5;
-    color: var(--primary-color);
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-links li {
-    margin: 0 20px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 600;
-    font-size: 16px;
-    position: relative;
-    padding-bottom: 5px;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
 /* ==================== تصميم الفوتر المحدث بألوان عصرية ==================== */
 
 /* ==================== تصميم الفوتر المحدث بألوان عصرية ==================== */
@@ -1110,3 +1033,360 @@ body.page-home main.main-content {
     }
 }
 
+/* =================================
+   Modern Design for Confirm Deletion Page
+   ================================= */
+
+.delete-confirmation-container {
+    max-width: 500px;
+    background-color: var(--surface-color);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    text-align: center;
+    border-top: 5px solid #ef4444; /* Red top border for warning */
+}
+
+.delete-icon {
+    margin: 0 auto 15px auto;
+    width: 60px;
+    height: 60px;
+    background-color: #fee2e2; /* Light red background */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: #ef4444; /* Red icon color */
+}
+
+.confirm-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0 0 10px 0;
+}
+
+.confirm-text {
+    color: var(--subtle-text-color);
+    line-height: 1.6;
+    margin: 0 0 10px 0;
+}
+
+.confirm-text strong {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.confirm-text.warning {
+    font-weight: 600;
+    color: #b91c1c; /* Darker red for the final warning */
+    margin-top: 20px;
+}
+
+.delete-form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* --- Redesigned Buttons --- */
+
+.btn-danger {
+    width: 100%;
+    padding: 14px;
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+}
+
+.btn-danger:hover {
+    background-color: #dc2626;
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(239, 68, 68, 0.3);
+}
+
+.btn-cancel {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--subtle-text-color);
+    transition: color 0.3s ease;
+}
+
+.btn-cancel:hover {
+    color: var(--text-color);
+}
+
+/* --- Animation on Page Load --- */
+.animate-on-load {
+    animation: fadeInScaleUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInScaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+/* =================================
+   Updated Navbar with Icons & Animations
+   ================================= */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 75px;
+}
+
+.nav-group-left {
+    display: flex;
+    align-items: center;
+    gap: 40px; /* Increased gap */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: 700;
+}
+.logo span { font-size: 24px; color: var(--primary-color); }
+.logo-icon { width: 32px; height: 32px; color: var(--primary-color); transition: transform 0.4s ease; }
+.logo:hover .logo-icon { transform: rotate(360deg); }
+.main-header:not(.scrolled) .logo span,
+.main-header:(.scrolled) .logo-icon { color: white; }
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 35px; /* Increased gap */
+}
+
+/* --- New Styles for Links with Icons --- */
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 5px;
+    transition: transform 0.3s ease;
+}
+.nav-links a:hover {
+    transform: translateY(-2px); /* Lift effect on hover */
+    color: var(--primary-color);
+}
+
+.nav-links a svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+    transition: color 0.3s ease;
+}
+.main-header:(.scrolled) .nav-links a { color: #f1f5f9; }
+.nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+.main-header:(.scrolled) .nav-links a:hover::after { background-color: white; }
+
+/* --- New Styles for Buttons & Logout Animation --- */
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.nav-welcome { font-weight: 600; }
+.main-header:not(.scrolled) .nav-welcome { color: white; }
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.logout-btn svg {
+    width: 0; /* Initially hidden */
+    opacity: 0;
+    transition: all 0.4s ease;
+    stroke-width: 2;
+}
+.logout-btn:hover svg {
+    width: 18px; /* Revealed on hover */
+    opacity: 1;
+    margin-left: 5px;
+
+}
+.main-header {
+    width: 100%;
+    padding: 0 4%;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: #ffffff; /* Solid white background */
+    box-shadow: 0 2px 15px rgba(0,0,0,0.07); /* Always have a subtle shadow */
+    transition: height 0.3s ease-in-out;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 75px;
+    transition: height 0.3s ease-in-out;
+}
+
+/* Subtle shrink effect on scroll */
+.main-header.scrolled .main-nav {
+    height: 70px;
+}
+
+.nav-group-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+/* --- Logo Styles --- */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: 700;
+}
+.logo span { 
+    font-size: 24px; 
+    color: var(--primary-color); /* Always the primary color */
+}
+.logo-icon { 
+    width: 32px; 
+    height: 32px; 
+    color: var(--primary-color); /* Always the primary color */
+    transition: transform 0.4s ease; 
+}
+.logo:hover .logo-icon { 
+    transform: rotate(360deg); 
+}
+
+/* --- Nav Links Styles --- */
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 35px;
+}
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text-color); /* Always the dark text color */
+    font-weight: 600;
+    position: relative;
+    padding: 5px 0;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.nav-links a:hover {
+    transform: translateY(-2px);
+    color: var(--primary-color);
+}
+.nav-links a svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+.nav-links a::after {
+    content: ''; 
+    position: absolute; 
+    bottom: 0; 
+    left: 0;
+    width: 0; 
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+.nav-links a:hover::after { 
+    width: 100%; 
+}
+
+/* --- Buttons & Logout Animation Styles --- */
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.nav-welcome { 
+    font-weight: 600; 
+    color: var(--subtle-text-color); 
+}
+
+.nav-btn, .nav-btn-secondary {
+    padding: 8px 16px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+.nav-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+.nav-btn:hover {
+    background-color: var(--primary-color-hover);
+    transform: translateY(-2px);
+}
+.nav-btn-secondary {
+    background-color: #f1f5f9;
+    color: var(--primary-color);
+}
+.nav-btn-secondary:hover {
+    background-color: #e2e8f0;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.logout-btn span { 
+    transition: all 0.3s ease; 
+}
+.logout-btn svg {
+    width: 0;
+    opacity: 0;
+    stroke-width: 2;
+    transition: all 0.4s ease;
+}
+.logout-btn:hover svg {
+    width: 18px;
+    opacity: 1;
+    margin-left: 5px;
+}

@@ -70,7 +70,6 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // كود الحركات العامة عند التمرير
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     if (animatedElements.length > 0) {
         const observer = new IntersectionObserver((entries) => {
@@ -84,11 +83,9 @@ document.addEventListener("DOMContentLoaded", function() {
         animatedElements.forEach(el => { observer.observe(el); });
     }
 
-    // كود حركة شريط التقدم
     const progressBar = document.querySelector('.progress-bar');
     if (progressBar) {
         const percentage = progressBar.getAttribute('data-percentage');
-        // تأكد من أن الشريط يظهر قبل بدء الحركة
         const progressObserver = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
                 progressBar.querySelector('span').style.width = `${percentage}%`;
