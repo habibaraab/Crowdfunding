@@ -1,74 +1,47 @@
 # projects/views.py
 
-from django.contrib import messages
-from .forms import CustomUserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
-
-
-# projects/views.py
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from django.contrib.auth import logout
+from .forms import CustomUserCreationForm, ProjectForm, DonationForm
+from .models import Project
 
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            # --- تعديل بسيط هنا ---
-            user = form.save() # نحفظ المستخدم ونستقبله في متغير
-            # حفظ رقم الهاتف في الـ profile المرتبط بالمستخدم
+            user = form.save()
             user.profile.mobile_phone = form.cleaned_data.get('mobile_phone')
             user.profile.save()
-            # ---------------------
             
-            messages.success(request, f'تم إنشاء حسابك بنجاح! يمكنك الآن تسجيل الدخول.')
+            messages.success(request, 'Your account has been created successfully! You can now log in.')
             return redirect('login')
     else:
         form = CustomUserCreationForm()
     
     return render(request, 'projects/register.html', {'form': form})
 
-# projects/views.py
-
-from django.shortcuts import render, redirect
-# ... (باقي أكواد الـ import)
-
-# ... (دالة الـ register)
-
 def home(request):
-    # جلب آخر 3 مشاريع تمت إضافتها لعرضها كمشاريع مميزة
     featured_projects = Project.objects.order_by('-id')[:3]
     context = {
         'featured_projects': featured_projects
     }
     return render(request, 'projects/home.html', context)
 
-
-
-# projects/views.py
-
-from django.contrib.auth.decorators import login_required # لاستيراد خاصية التحقق من تسجيل الدخول
-from .forms import CustomUserCreationForm, ProjectForm
-from .models import Project
-# ... (أكواد الـ import الأخرى)
-
-# ... (دوال register و home)
-
-@login_required # <-- هذا السطر يمنع أي شخص غير مسجل من الوصول لهذه الصفحة
+@login_required
 def create_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            # لا تقم بالحفظ مباشرة، نحتاج لربط المشروع بالمستخدم أولاً
             project = form.save(commit=False)
-            project.creator = request.user # تعيين المستخدم الحالي كصاحب المشروع
+            project.creator = request.user
             project.save()
-            return redirect('project_list') # توجيه المستخدم لصفحة كل المشاريع بعد النجاح
+            return redirect('project_list')
     else:
         form = ProjectForm()
     return render(request, 'projects/project_form.html', {'form': form})
-
-
-# projects/views.py
-
-# projects/views.py
 
 def project_list(request):
     projects = Project.objects.all()
@@ -76,7 +49,6 @@ def project_list(request):
     search_date = request.GET.get('search_date')
     
     if search_date:
-        # الشرط: عرض المشاريع التي بدأت قبل أو في هذا اليوم، وتنتهي بعد أو في هذا اليوم
         projects = projects.filter(start_time__lte=search_date, end_time__gte=search_date)
         
     context = {
@@ -85,23 +57,11 @@ def project_list(request):
     }
     return render(request, 'projects/project_list.html', context)
 
-# ... (باقي أكواد import)
-
-# ... (باقي الدوال)
-
-# projects/views.py
-from .forms import CustomUserCreationForm, ProjectForm, DonationForm # <-- أضف DonationForm هنا
-
-# ... (باقي الـ imports)
-
-# لا تنس إضافة هذا الديكوريتور
 def project_detail(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     donation_form = DonationForm()
 
-    # --- معالجة طلبات التبرع ---
     if request.method == 'POST':
-        # التحقق الإضافي لضمان الأمان
         if not request.user.is_authenticated:
             return redirect('login')
             
@@ -112,26 +72,20 @@ def project_detail(request, project_id):
                 donation.donator = request.user
                 donation.project = project
                 donation.save()
-                messages.success(request, 'شكراً لك! تم تسجيل تبرعك بنجاح.')
+                messages.success(request, 'Thank you! Your donation has been recorded successfully.')
                 return redirect('project_detail', project_id=project.id)
 
-    # --- عرض الصفحة في الحالة العادية (GET) ---
     context = {
         'project': project,
         'donation_form': donation_form
     }
     return render(request, 'projects/project_detail.html', context)
-# projects/views.py
-
-from django.http import HttpResponseForbidden
-# ... (imports)
 
 @login_required
 def edit_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
-    # تحقق مما إذا كان المستخدم الحالي هو صاحب المشروع
     if project.creator != request.user:
-        return HttpResponseForbidden("ليس لديك الصلاحية لتعديل هذا المشروع.")
+        return HttpResponseForbidden("You do not have permission to edit this project.")
 
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES, instance=project)
@@ -139,16 +93,15 @@ def edit_project(request, project_id):
             form.save()
             return redirect('project_detail', project_id=project.id)
     else:
-        form = ProjectForm(instance=project) # عرض النموذج مملوءاً بالبيانات الحالية
+        form = ProjectForm(instance=project)
     
-    return render(request, 'projects/project_form.html', {'form': form, 'form_type': 'تعديل'})
-
+    return render(request, 'projects/project_form.html', {'form': form, 'form_type': 'Edit'})
 
 @login_required
 def delete_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     if project.creator != request.user:
-        return HttpResponseForbidden("ليس لديك الصلاحية لحذف هذا المشروع.")
+        return HttpResponseForbidden("You do not have permission to delete this project.")
 
     if request.method == 'POST':
         project.delete()
@@ -156,13 +109,6 @@ def delete_project(request, project_id):
         
     return render(request, 'projects/project_confirm_delete.html', {'project': project})
 
-
-from django.contrib.auth import logout
-# ... (باقي أكواد الـ import)
-
-# ... (كل الدوال الأخرى) ...
-
-# === أضف هذه الدالة الجديدة ===
 def logout_view(request):
     logout(request)
     return redirect('home')

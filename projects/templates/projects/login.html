@@ -1,34 +1,39 @@
 {% extends "projects/base.html" %}
 
-{% block title %}تسجيل الدخول{% endblock %}
+{% block title %}Log In{% endblock %}
 
 {% block content %}
-<div class="auth-container">
-    <h2>تسجيل الدخول</h2>
+<div dir="ltr">
+    <div class="auth-container">
+        <h2>Log In</h2>
 
-    <form method="POST">
-        {% csrf_token %}
+        <form method="POST">
+            {% csrf_token %}
 
-        {% if form.non_field_errors %}
-            <div class="error-box">
-                {% for error in form.non_field_errors %}
-                    <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-        {% for field in form %}
-            <div class="input-group">
-                {{ field.label_tag }}
-                {{ field }}
-                {% if field.errors %}
-                    <small class="field-error">{{ field.errors|striptags }}</small>
-                {% endif %}
-            </div>
-        {% endfor %}
-        <button type="submit" class="submit-btn">دخول</button>
-    </form>
-    <div class="auth-link">
-        <small>لا تملك حساب؟ <a href="{% url 'register' %}">أنشئ حساباً جديداً</a></small>
+            {% if form.non_field_errors %}
+                <div class="error-box">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% for field in form %}
+                <div class="input-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <small class="field-error">{{ field.errors|striptags }}</small>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            
+            <button type="submit" class="submit-btn">Log In</button>
+        </form>
+        
+        <div class="auth-link">
+            <small>Don't have an account? <a href="{% url 'register' %}">Create a new account</a></small>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -1,10 +1,10 @@
 {% extends "projects/base.html" %}
 
-{% block title %}إنشاء حساب جديد{% endblock %}
+{% block title %}Create a New Account{% endblock %}
 
 {% block content %}
 <div class="auth-container">
-    <h2>إنشاء حساب جديد</h2>
+    <h2>Create a New Account</h2>
     <form method="POST">
         {% csrf_token %}
         {% for field in form %}
@@ -16,10 +16,10 @@
                 {% endif %}
             </div>
         {% endfor %}
-        <button type="submit" class="submit-btn">إنشاء الحساب</button>
+        <button type="submit" class="submit-btn">Create Account</button>
     </form>
     <div class="auth-link">
-        <small>لديك حساب بالفعل؟ <a href="{% url 'login' %}">سجل الدخول</a></small>
+        <small>Already have an account? <a href="{% url 'login' %}">Log In</a></small>
     </div>
 </div>
 {% endblock %}
