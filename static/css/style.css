@@ -746,3 +746,210 @@ body.page-home .main-content {
     margin-left: -50vw;
     margin-right: -50vw;
 }
+
+/* ==================== تصميم صفحة تصفح المشاريع المحدث ==================== */
+
+/* --- تصميم القسم العلوي (الهيدر) للصفحة --- */
+.page-header {
+    padding: 140px 5% 60px 5%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #3730a3 100%);
+    color: white;
+    text-align: center;
+}
+.page-header h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+.page-header p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 15px auto 0 auto;
+    opacity: 0.9;
+}
+
+/* --- تصميم حاوية البحث والأزرار --- */
+.search-container {
+    background-color: var(--surface-color);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.search-container form {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 1; /* السماح للنموذج بالنمو */
+}
+
+.search-input-group {
+    display: flex;
+    align-items: center;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+.search-input-group svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--subtle-text-color);
+    margin-left: 8px;
+}
+.search-date-input {
+    border: none;
+    background: transparent;
+    padding: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--text-color);
+}
+.search-date-input:focus {
+    outline: none;
+}
+.clear-search-link {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--subtle-text-color);
+    transition: color 0.3s ease;
+}
+.clear-search-link:hover {
+    color: var(--primary-color);
+}
+
+/* تعديل حجم الأزرار في هذه الصفحة */
+.hero-btn.small {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+}
+
+/* رسالة عدم وجود مشاريع */
+.no-projects-message {
+    grid-column: 1 / -1; /* تجعل الرسالة تمتد على كل الأعمدة */
+    text-align: center;
+    padding: 50px;
+}
+
+
+/* ==================== تصميم صفحة تفاصيل المشروع المحدثة ==================== */
+.project-detail-page {
+    background-color: var(--surface-color);
+}
+.project-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* عمود واحد في الشاشات الصغيرة */
+    gap: 40px;
+    padding: 40px 0;
+}
+
+/* --- تصميم عمود الصورة --- */
+.project-image-column .project-detail-image {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.project-detail-image-placeholder {
+    width: 100%; height: 400px; border-radius: 15px;
+    background-color: #f1f5f9; display: flex;
+    justify-content: center; align-items: center; color: var(--subtle-text-color);
+}
+
+/* --- تصميم عمود المعلومات --- */
+.project-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0 0 10px 0;
+}
+.project-creator {
+    font-size: 1.1rem;
+    color: var(--subtle-text-color);
+    margin-bottom: 25px;
+}
+
+/* --- تصميم بطاقة التمويل والتبرع --- */
+.funding-card {
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px;
+}
+.funding-card .progress-bar-container {
+    height: 12px;
+    background-color: #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.funding-card .progress-bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    border-radius: 12px;
+    width: 0; /* يبدأ من صفر لتتم الحركة بالجافاسكريبت */
+    transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.funding-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+.funding-stats .stat {
+    display: flex;
+    flex-direction: column;
+}
+.funding-stats .amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+.funding-stats .label {
+    font-size: 0.9rem;
+    color: var(--subtle-text-color);
+}
+.donation-form-container form p { margin: 0 0 15px 0; }
+.donation-form-container label { display: none; } /* إخفاء الليبل */
+.donation-form-container input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px; box-sizing: border-box; font-size: 1rem;
+}
+.hero-btn.full-width { width: 100%; }
+.project-owner-note { text-align: center; color: var(--subtle-text-color); padding: 20px; }
+
+
+/* --- تصميم قسم التفاصيل السفلي وأزرار التحكم --- */
+.project-full-details {
+    padding-top: 40px;
+    margin-top: 40px;
+    border-top: 1px solid var(--border-color);
+}
+.project-full-details h3 { font-size: 1.8rem; margin-bottom: 15px; }
+.project-full-details p { line-height: 1.8; color: #333; }
+.project-controls { margin-top: 20px; display: flex; gap: 15px; }
+.control-btn {
+    text-decoration: none; padding: 8px 15px; border-radius: 8px;
+    font-weight: 600; transition: all 0.3s ease;
+    background-color: #e2e8f0; color: var(--text-color);
+}
+.control-btn:hover { background-color: #cbd5e1; }
+.control-btn.delete { background-color: #fee2e2; color: #b91c1c; }
+.control-btn.delete:hover { background-color: #fecaca; }
+
+/* --- تصميم الشاشات الكبيرة (عمودين) --- */
+@media (min-width: 992px) {
+    .project-detail-grid {
+        grid-template-columns: 1.2fr 1fr; /* جعل عمود الصورة أكبر قليلاً */
+        align-items: start;
+    }
+}

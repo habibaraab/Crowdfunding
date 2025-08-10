@@ -3,49 +3,89 @@
 {% block title %}Browse Projects{% endblock %}
 
 {% block content %}
-<div class="project-list-container">
-    <h2>Available Projects</h2>
 
-    <div class="search-container">
-        <form method="GET" action="{% url 'project_list' %}">
-            <label for="search_date">Search for active projects on date:</label>
-            <input type="date" id="search_date" name="search_date" value="{{ search_date|default:'' }}" class="search-date-input">
-            
-            <button type="submit" class="nav-btn">Search</button>
-            
-            {% if search_date %}
-                <a href="{% url 'project_list' %}" class="clear-search-link">Clear Search</a>
-            {% endif %}
-        </form>
+<section class="page-header">
+    <div class="section-container">
+        <h1 class="animate-on-scroll slide-up">Explore Promising Ideas</h1>
+        <p class="animate-on-scroll slide-up" style="transition-delay: 0.1s;">Find projects that inspire you and be part of their success story.</p>
     </div>
-    {% if user.is_authenticated %}
-        <a href="{% url 'create_project' %}" class="nav-btn" style="margin-bottom: 20px; display: inline-block;">+ Add New Project</a>
-    {% endif %}
+</section>
 
-    <div class="project-grid">
-        {% for project in projects %}
-            <a href="{% url 'project_detail' project.id %}" class="project-card-link">
-                <div class="project-card">
-                    {% if project.main_picture %}
-                        <img src="{{ project.main_picture.url }}" alt="{{ project.title }}" class="project-image">
-                    {% endif %}
-                    <div class="card-content">
-                        <h3>{{ project.title }}</h3>
-                        <p class="project-creator">By: {{ project.creator.username }}</p>
-                        <p class="project-details">{{ project.details|truncatewords:20 }}</p>
-                        <div class="funding-info">
-                            <p><strong>Target:</strong> {{ project.total_target }} EGP</p>
-                        </div>
-                    </div>
+<section class="section">
+    <div class="project-list-container section-container">
+
+        <div class="search-container animate-on-scroll slide-up" style="transition-delay: 0.2s;">
+            <form method="GET" action="{% url 'project_list' %}">
+                <div class="search-input-group">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                    <input type="date" name="search_date" value="{{ search_date|default:'' }}" class="search-date-input" title="Search for active projects by date">
                 </div>
-            </a>
-        {% empty %}
-            {% if search_date %}
-                <p>No active projects on this date.</p>
-            {% else %}
-                <p>No projects available at the moment.</p>
+                <button type="submit" class="hero-btn primary small">Search</button>
+                {% if search_date %}
+                    <a href="{% url 'project_list' %}" class="clear-search-link">Clear Search</a>
+                {% endif %}
+            </form>
+            {% if user.is_authenticated %}
+                <a href="{% url 'create_project' %}" class="hero-btn secondary small">+ Add New Project</a>
             {% endif %}
-        {% endfor %}
+        </div>
+        <div class="project-grid">
+            {% for project in projects %}
+                <div class="animate-on-scroll slide-up">
+                    <a href="{% url 'project_detail' project.id %}" class="project-card-link">
+                        <div class="project-card">
+                            <div class="project-card-image-container">
+                                {% if project.main_picture %}
+                                    <img src="{{ project.main_picture.url }}" alt="{{ project.title }}" class="project-image">
+                                {% endif %}
+                            </div>
+                            <div class="card-content">
+                                <h3>{{ project.title }}</h3>
+                                <p class="project-creator">By: {{ project.creator.username }}</p>
+                                <div class="funding-info">
+                                    <div class="progress-bar-container-small">
+                                        <div class="progress-bar-small" style="width: {{ project.funding_percentage|floatformat:0 }}%;"></div>
+                                    </div>
+                                    <p><strong>{{ project.current_funding|floatformat:0 }} EGP</strong> <span class="target-text">/ {{ project.total_target|floatformat:0 }} EGP</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% empty %}
+                <div class="no-projects-message">
+                    {% if search_date %}
+                        <p>There are no active projects on this date.</p>
+                    {% else %}
+                        <p>There are no projects available at the moment.</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
-</div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        if (!animatedElements.length) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animatedElements.forEach(el => { observer.observe(el); });
+
+        const projectCards = document.querySelectorAll('.project-grid .animate-on-scroll');
+        projectCards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.05}s`;
+        });
+    });
+</script>
+
 {% endblock %}

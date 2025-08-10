@@ -3,59 +3,100 @@
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block content %}
-<div class="project-detail-container">
-    {% if project.main_picture %}
-        <img src="{{ project.main_picture.url }}" alt="{{ project.title }}" class="project-detail-image">
-    {% endif %}
+<div class="project-detail-page">
+    <div class="section-container">
+        <div class="project-detail-grid">
+            
+            <div class="project-image-column animate-on-scroll slide-up">
+                {% if project.main_picture %}
+                    <img src="{{ project.main_picture.url }}" alt="{{ project.title }}" class="project-detail-image">
+                {% else %}
+                    <div class="project-detail-image-placeholder">
+                        <span>No Image</span>
+                    </div>
+                {% endif %}
+            </div>
 
-    <h1>{{ project.title }}</h1>
-    <p class="project-creator">A project by: {{ project.creator.username }}</p>
+            <div class="project-info-column animate-on-scroll slide-up" style="transition-delay: 0.1s;">
+                <h1 class="project-title">{{ project.title }}</h1>
+                <p class="project-creator">A project by: <strong>{{ project.creator.username }}</strong></p>
 
-    <div class="progress-bar-container">
-        <div class="progress-bar" style="width: {{ project.funding_percentage|floatformat:2 }}%;">
-            {{ project.funding_percentage|floatformat:2 }}%
+                <div class="funding-card">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" data-percentage="{{ project.funding_percentage|floatformat:2 }}">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="funding-stats">
+                        <div class="stat">
+                            <span class="amount">{{ project.current_funding|floatformat:2 }} EGP</span>
+                            <span class="label">Pledged of {{ project.total_target|floatformat:2 }} EGP goal</span>
+                        </div>
+                        <div class="stat">
+                            <span class="amount">{{ project.donations.count }}</span>
+                            <span class="label">Backers</span>
+                        </div>
+                    </div>
+                    
+                    {% if user.is_authenticated and user != project.creator %}
+                    <div class="donation-form-container">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ donation_form.as_p }}
+                            <button type="submit" name="donate_form" class="hero-btn primary full-width">Back this project</button>
+                        </form>
+                    </div>
+                    {% elif user.is_authenticated and user == project.creator %}
+                        <p class="project-owner-note">This is your project. You cannot back it.</p>
+                    {% else %}
+                        <a href="{% url 'login' %}?next={{ request.path }}" class="hero-btn primary full-width">Login to back this project</a>
+                    {% endif %}
+                </div>
+                 {% if user.is_authenticated and user == project.creator %}
+                <div class="project-controls">
+                    <a href="{% url 'edit_project' project.id %}" class="control-btn">Edit Project</a>
+                    <a href="{% url 'delete_project' project.id %}" class="control-btn delete">Delete Project</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="project-full-details animate-on-scroll slide-up">
+            <h3>About This Project</h3>
+            <p>{{ project.details|linebreaks }}</p>
         </div>
     </div>
-    <div class="project-info-grid">
-        <div class="info-box">
-            <h4>Amount Raised</h4>
-            <p>{{ project.current_funding|floatformat:2 }} EGP</p>
-        </div>
-        <div class="info-box">
-            <h4>Target Amount</h4>
-            <p>{{ project.total_target|floatformat:2 }} EGP</p>
-        </div>
-        <div class="info-box">
-            <h4>Number of Donors</h4>
-            <p>{{ project.donations.count }}</p>
-        </div>
-    </div>
-
-    {% if user.is_authenticated and user != project.creator %}
-    <div class="donation-section">
-        <h3>Support This Project</h3>
-        <form method="POST">
-            {% csrf_token %}
-            {{ donation_form.as_p }}
-            <button type="submit" name="donate_form" class="submit-btn">Donate Now</button>
-        </form>
-    </div>
-    {% elif user.is_authenticated and user == project.creator %}
-        <p>You cannot donate to your own project.</p>
-    {% else %}
-        <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to support this project.</p>
-    {% endif %}
-    
-    <div class="project-full-details">
-        <h3>About the Project</h3>
-        <p>{{ project.details|linebreaks }}</p>
-    </div>
-
-    {% if user.is_authenticated and user == project.creator %}
-    <div class="project-controls">
-        <a href="{% url 'edit_project' project.id %}" class="nav-btn">Edit Project</a>
-        <a href="{% url 'delete_project' project.id %}" class="nav-btn-secondary">Delete Project</a>
-    </div>
-    {% endif %}
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // كود الحركات العامة عند التمرير
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    if (animatedElements.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        animatedElements.forEach(el => { observer.observe(el); });
+    }
+
+    // كود حركة شريط التقدم
+    const progressBar = document.querySelector('.progress-bar');
+    if (progressBar) {
+        const percentage = progressBar.getAttribute('data-percentage');
+        // تأكد من أن الشريط يظهر قبل بدء الحركة
+        const progressObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                progressBar.querySelector('span').style.width = `${percentage}%`;
+                progressObserver.unobserve(progressBar);
+            }
+        }, { threshold: 0.5 });
+        progressObserver.observe(progressBar);
+    }
+});
+</script>
 {% endblock %}
