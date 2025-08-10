@@ -3,17 +3,99 @@
 {% block title %}{% if form_type == 'Edit' %}Edit Project{% else %}Create New Project{% endif %}{% endblock %}
 
 {% block content %}
-<div class="auth-container">
-    <h2>{% if form_type == 'Edit' %}Edit Project{% else %}Launch Your New Campaign{% endif %}</h2>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="input-group">
-                <label>{{ field.label }}</label>
-                {{ field }}
+<div class="form-page-container">
+    <div class="form-sidebar animate-on-scroll slide-up">
+        <div class="sidebar-content">
+            {% if form_type == 'Edit' %}
+                <h3>Edit Your Campaign</h3>
+                <p>Update your campaign details. Remember that transparency with your backers is the key to success.</p>
+            {% else %}
+                <h3>Start Your Success Story</h3>
+                <p>Fill out the form to launch your campaign. Every great idea starts with a first step. Be clear and compelling in your description to attract backers.</p>
+            {% endif %}
+            <ul class="tips-list">
+                <li>✔️ Use a catchy title.</li>
+                <li>✔️ Explain your story clearly.</li>
+                <li>✔️ Set a realistic financial goal.</li>
+                <li>✔️ Choose a distinctive, high-quality image.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="form-main animate-on-scroll slide-up" style="transition-delay: 0.1s;">
+        <h2 class="form-title">{% if form_type == 'Edit' %}Edit Project Information{% else %}Your New Project Details{% endif %}</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Project Title</label>
+                {{ form.title }}
             </div>
-        {% endfor %}
-        <button type="submit" class="submit-btn">{% if form_type == 'Edit' %}Save Changes{% else %}Create Project{% endif %}</button>
-    </form>
+
+            <div class="form-group">
+                <label for="{{ form.details.id_for_label }}">Project Details</label>
+                {{ form.details }}
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="{{ form.total_target.id_for_label }}">Total Target Amount (EGP)</label>
+                    {{ form.total_target }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.main_picture.id_for_label }}">Main Campaign Image</label>
+                    <div class="custom-file-input">
+                        {{ form.main_picture }}
+                        <label for="{{ form.main_picture.id_for_label }}" class="file-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                            <span>Choose a file...</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="{{ form.start_time.id_for_label }}">Campaign Start Date</label>
+                    {{ form.start_time }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.end_time.id_for_label }}">Campaign End Date</label>
+                    {{ form.end_time }}
+                </div>
+            </div>
+
+            <button type="submit" class="hero-btn primary full-width">{% if form_type == 'Edit' %}Save Changes{% else %}Create Project Now{% endif %}</button>
+        </form>
+    </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        if (animatedElements.length > 0) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => { observer.observe(el); });
+        }
+
+        const fileInput = document.querySelector('input[type="file"]');
+        if (fileInput) {
+            const fileLabelSpan = document.querySelector('.file-label span');
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    fileLabelSpan.textContent = e.target.files[0].name;
+                } else {
+                    fileLabelSpan.textContent = 'Choose a file...';
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}
