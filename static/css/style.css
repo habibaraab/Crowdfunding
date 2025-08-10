@@ -1211,8 +1211,6 @@ body.page-home main.main-content {
     background-color: var(--primary-color);
     transition: width 0.3s ease;
 }
-.nav-links a:hover::after { width: 100%; }
-.main-header:(.scrolled) .nav-links a:hover::after { background-color: white; }
 
 /* --- New Styles for Buttons & Logout Animation --- */
 .nav-buttons {
@@ -1221,7 +1219,7 @@ body.page-home main.main-content {
     gap: 15px;
 }
 .nav-welcome { font-weight: 600; }
-.main-header:not(.scrolled) .nav-welcome { color: white; }
+.main-header:(.scrolled) .nav-welcome { color: white; }
 
 .logout-btn {
     display: flex;
