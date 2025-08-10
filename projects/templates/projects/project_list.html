@@ -1,0 +1,51 @@
+{% extends "projects/base.html" %}
+
+{% block title %}تصفح المشاريع{% endblock %}
+
+{% block content %}
+<div class="project-list-container">
+    <h2>المشاريع المتاحة</h2>
+
+    <div class="search-container">
+        <form method="GET" action="{% url 'project_list' %}">
+            <label for="search_date">ابحث عن المشاريع النشطة في تاريخ:</label>
+            <input type="date" id="search_date" name="search_date" value="{{ search_date|default:'' }}" class="search-date-input">
+            
+            <button type="submit" class="nav-btn">ابحث</button>
+            
+            {% if search_date %}
+                <a href="{% url 'project_list' %}" class="clear-search-link">إلغاء البحث</a>
+            {% endif %}
+        </form>
+    </div>
+    {% if user.is_authenticated %}
+        <a href="{% url 'create_project' %}" class="nav-btn" style="margin-bottom: 20px; display: inline-block;">+ أضف مشروع جديد</a>
+    {% endif %}
+
+    <div class="project-grid">
+        {% for project in projects %}
+            <a href="{% url 'project_detail' project.id %}" class="project-card-link">
+                <div class="project-card">
+                    {% if project.main_picture %}
+                        <img src="{{ project.main_picture.url }}" alt="{{ project.title }}" class="project-image">
+                    {% endif %}
+                    <div class="card-content">
+                        <h3>{{ project.title }}</h3>
+                        <p class="project-creator">بواسطة: {{ project.creator.username }}</p>
+                        <p class="project-details">{{ project.details|truncatewords:20 }}</p>
+                        <div class="funding-info">
+                            <p><strong>المستهدف:</strong> {{ project.total_target }} جنيه</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% empty %}
+            {% if search_date %}
+                <p>لا توجد مشاريع نشطة في هذا التاريخ.</p>
+            {% else %}
+                <p>لا توجد مشاريع متاحة حالياً.</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

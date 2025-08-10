@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CrowdFunding{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="main-nav">
+            <a href="{% url 'home' %}" class="logo">CrowdFund</a>
+          <ul class="nav-links">
+    <li><a href="{% url 'home' %}">الرئيسية</a></li>
+    <li><a href="{% url 'project_list' %}">تصفح المشاريع</a></li>
+     <li><a href="{% url 'create_project' %}">إبدأ مشروعك</a></li> 
+    </ul>
+            <div class="nav-buttons">
+    {% if user.is_authenticated %}
+        <span class="nav-welcome">مرحباً, {{ user.username }}</span>
+        <a href="{% url 'logout' %}" class="nav-btn-secondary">خروج</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="nav-btn">دخول</a>
+        <a href="{% url 'register' %}" class="nav-btn-secondary">تسجيل جديد</a>
+    {% endif %}
+</div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 - جميع الحقوق محفوظة لمشروع CrowdFund.</p>
+            <div class="social-links">
+                <a href="#">فيسبوك</a> | <a href="#">تويتر</a> | <a href="#">لينكدإن</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

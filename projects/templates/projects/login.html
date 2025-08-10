@@ -1,0 +1,25 @@
+{% extends "projects/base.html" %}
+
+{% block title %}تسجيل الدخول{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>تسجيل الدخول</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="input-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <small style="color: red;">{{ field.errors|striptags }}</small>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="submit-btn">دخول</button>
+    </form>
+    <div class="auth-link">
+        <small>لا تملك حساب؟ <a href="{% url 'register' %}">أنشئ حساباً جديداً</a></small>
+    </div>
+</div>
+{% endblock %}

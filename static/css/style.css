@@ -1,0 +1,523 @@
+/* static/css/style.css */
+
+/* --- استيراد خط جميل من جوجل --- */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+/* --- متغيرات الألوان لسهولة التعديل --- */
+:root {
+    --primary-color: #007bff; /* أزرق جذاب */
+    --primary-color-hover: #0056b3;
+    --background-color: #f4f7f6;
+    --form-background: #ffffff;
+    --text-color: #333;
+    --border-color: #ddd;
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- تصميم الجسم الرئيسي للصفحة --- */
+body {
+    font-family: 'Cairo', sans-serif; /* استخدام الخط الجديد */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    direction: rtl; /* دعم اللغة العربية */
+}
+
+/* --- حاوية النموذج (الصندوق الأبيض) --- */
+.auth-container {
+    background-color: var(--form-background);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    /* --- حركة الظهور عند تحميل الصفحة --- */
+    animation: fadeInDown 0.8s ease-in-out;
+}
+
+/* --- تعريف حركة الظهور --- */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- تصميم العنوان الرئيسي (تسجيل الدخول/إنشاء حساب) --- */
+.auth-container h2 {
+    margin-bottom: 25px;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* --- تصميم حقول الإدخال --- */
+.input-group {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    box-sizing: border-box; /* يضمن أن الـ padding لا يزيد من العرض */
+    transition: all 0.3s ease; /* حركة ناعمة عند التفاعل */
+}
+
+/* --- حركة عند التركيز على حقل الإدخال --- */
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* --- تصميم زر الإرسال --- */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* --- حركة عند مرور الماوس فوق الزر --- */
+.submit-btn:hover {
+    background-color: var(--primary-color-hover);
+    transform: translateY(-2px); /* يرتفع قليلاً للأعلى */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* --- تصميم الروابط الثانوية --- */
+.auth-link {
+    margin-top: 20px;
+}
+
+.auth-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+    color: var(--primary-color-hover);
+}
+
+/* --- تصميم رسائل النجاح والخطأ من جانجو --- */
+.messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+.messages li {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.messages li.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.messages li.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+/* static/css/style.css */
+
+/* ==================== إضافات التصميم الجديدة ==================== */
+
+/* تعديل على الـ body ليتناسب مع الهيدر والفوتر */
+body {
+    display: flex;
+    flex-direction: column; /* ترتيب العناصر بشكل عمودي */
+}
+
+/* تصميم المحتوى الرئيسي ليملأ المساحة المتاحة */
+.main-content {
+    flex: 1; /* يجعل المحتوى يمتد ليملأ الفراغ بين الهيدر والفوتر */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+/* --- تصميم الهيدر والنافبار --- */
+.main-header {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 0 5%;
+    box-sizing: border-box;
+    position: sticky; /* يجعله يثبت في الأعلى عند التمرير */
+    top: 0;
+    z-index: 1000;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-buttons a {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+.nav-btn:hover {
+    background-color: var(--primary-color-hover);
+    color: #fff;
+}
+
+.nav-btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+.nav-btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/* --- تصميم الفوتر --- */
+.main-footer {
+    width: 100%;
+    background-color: #333;
+    color: #f4f7f6;
+    padding: 20px 5%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.footer-content .social-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-content .social-links a:hover {
+    color: var(--primary-color);
+}
+/* ... (في نهاية ملف style.css) ... */
+
+.project-list-container {
+    width: 80%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    text-align: right;
+}
+
+.project-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* يضمن أن الصورة تملأ المساحة بشكل جيد */
+}
+
+.project-card h3 {
+    padding: 15px 15px 5px 15px;
+    margin: 0;
+    color: var(--primary-color);
+}
+
+.project-card .project-creator {
+    padding: 0 15px;
+    font-size: 14px;
+    color: #777;
+    margin: 0 0 10px 0;
+}
+
+.project-card .project-details {
+    padding: 0 15px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.project-card .funding-info {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    margin-top: 15px;
+}
+/* --- تعديل لبطاقة المشروع القابلة للضغط --- */
+.project-card-link {
+    text-decoration: none; /* إزالة الخط من تحت الرابط */
+    color: inherit; /* جعل النص يرث لونه الطبيعي */
+}
+
+/* إضافة محتوى للبطاقة لتنظيم أفضل*/
+.project-card .card-content {
+    padding: 15px;
+}
+
+/* ==================== تصميم صفحة تفاصيل المشروع ==================== */
+
+.project-detail-container {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 800px; /* تحديد أقصى عرض للحاوية */
+    margin: 20px 0; /* إضافة هامش علوي وسفلي */
+    text-align: center;
+}
+
+.project-detail-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover; /* يجعل الصورة تملأ المساحة بشكل جيد */
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.project-detail-container h1 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.project-detail-container .project-creator {
+    color: #777;
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* --- تصميم أزرار التحكم (تعديل/حذف) --- */
+.project-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* مسافة بين الأزرار */
+    margin-bottom: 30px;
+}
+
+/* --- تصميم شبكة المعلومات (المبلغ/التواريخ) --- */
+.project-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.info-box {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.info-box h4 {
+    margin: 0 0 8px 0;
+    color: #555;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.info-box p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* --- تصميم قسم التفاصيل الكاملة --- */
+.project-full-details {
+    text-align: right; /* محاذاة النص لليمين لتسهيل القراءة بالعربية */
+    border-top: 1px solid #eee;
+    padding-top: 25px;
+}
+
+.project-full-details h3 {
+    margin-bottom: 15px;
+}
+
+.project-full-details p {
+    line-height: 1.8; /* زيادة المسافة بين السطور */
+    color: #333;
+    white-space: pre-wrap; /* يحافظ على فواصل الأسطر الموجودة في النص */
+}
+
+
+/* ==================== تصميم قسم التبرعات ==================== */
+
+/* --- شريط التقدم --- */
+.progress-bar-container {
+    width: 100%;
+    background-color: #e9ecef;
+    border-radius: 20px;
+    height: 30px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: var(--primary-color);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    transition: width 0.8s ease-in-out;
+}
+
+/* --- قسم التبرع --- */
+.donation-section {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.donation-section h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.donation-section form p {
+    margin-bottom: 15px;
+}
+
+.donation-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.donation-section input.donation-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 18px;
+}
+
+.donation-section .submit-btn {
+    margin-top: 10px;
+}
+
+/* ==================== تصميم نموذج البحث ==================== */
+.search-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border: 1px solid #eee;
+}
+
+.search-container form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* مسافة بين العناصر */
+}
+
+.search-date-input {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.clear-search-link {
+    text-decoration: none;
+    font-weight: 600;
+    color: #777;
+}
+
+.clear-search-link:hover {
+    color: #dc3545; /* لون أحمر عند المرور */
+}
