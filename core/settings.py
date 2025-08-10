@@ -121,9 +121,7 @@ USE_TZ = True
 
 # core/settings.py
 
-import os # تأكد من وجود هذا السطر في أعلى الملف
-
-# ... كل الإعدادات الأخرى ...
+import os 
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [

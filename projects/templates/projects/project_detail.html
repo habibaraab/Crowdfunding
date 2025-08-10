@@ -9,7 +9,7 @@
     {% endif %}
 
     <h1>{{ project.title }}</h1>
-    <p class="project-creator">مشروع بواسطة: {{ project.creator.username }}</p>
+    <p class="project-creator">A project by: {{ project.creator.username }}</p>
 
     <div class="progress-bar-container">
         <div class="progress-bar" style="width: {{ project.funding_percentage|floatformat:2 }}%;">
@@ -18,42 +18,43 @@
     </div>
     <div class="project-info-grid">
         <div class="info-box">
-            <h4>المبلغ المجمع</h4>
-            <p>{{ project.current_funding|floatformat:2 }} جنيه</p>
+            <h4>Amount Raised</h4>
+            <p>{{ project.current_funding|floatformat:2 }} EGP</p>
         </div>
         <div class="info-box">
-            <h4>المبلغ المستهدف</h4>
-            <p>{{ project.total_target|floatformat:2 }} جنيه</p>
+            <h4>Target Amount</h4>
+            <p>{{ project.total_target|floatformat:2 }} EGP</p>
         </div>
         <div class="info-box">
-            <h4>عدد المتبرعين</h4>
+            <h4>Number of Donors</h4>
             <p>{{ project.donations.count }}</p>
         </div>
     </div>
 
     {% if user.is_authenticated and user != project.creator %}
     <div class="donation-section">
-        <h3>ادعم هذا المشروع</h3>
+        <h3>Support This Project</h3>
         <form method="POST">
             {% csrf_token %}
             {{ donation_form.as_p }}
-            <button type="submit" name="donate_form" class="submit-btn">تبرع الآن</button>
+            <button type="submit" name="donate_form" class="submit-btn">Donate Now</button>
         </form>
     </div>
     {% elif user.is_authenticated and user == project.creator %}
-        <p>لا يمكنك التبرع لمشروعك.</p>
+        <p>You cannot donate to your own project.</p>
     {% else %}
-        <p><a href="{% url 'login' %}?next={{ request.path }}">سجل الدخول</a> لتدعم هذا المشروع.</p>
+        <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to support this project.</p>
     {% endif %}
+    
     <div class="project-full-details">
-        <h3>عن المشروع</h3>
+        <h3>About the Project</h3>
         <p>{{ project.details|linebreaks }}</p>
     </div>
 
     {% if user.is_authenticated and user == project.creator %}
     <div class="project-controls">
-        <a href="{% url 'edit_project' project.id %}" class="nav-btn">تعديل المشروع</a>
-        <a href="{% url 'delete_project' project.id %}" class="nav-btn-secondary">حذف المشروع</a>
+        <a href="{% url 'edit_project' project.id %}" class="nav-btn">Edit Project</a>
+        <a href="{% url 'delete_project' project.id %}" class="nav-btn-secondary">Delete Project</a>
     </div>
     {% endif %}
 </div>

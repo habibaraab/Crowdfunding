@@ -1,10 +1,10 @@
 {% extends "projects/base.html" %}
 
-{% block title %}{% if form_type == 'تعديل' %}تعديل المشروع{% else %}إنشاء مشروع جديد{% endif %}{% endblock %}
+{% block title %}{% if form_type == 'Edit' %}Edit Project{% else %}Create New Project{% endif %}{% endblock %}
 
 {% block content %}
 <div class="auth-container">
-    <h2>{% if form_type == 'تعديل' %}تعديل المشروع{% else %}أطلق حملتك الجديدة{% endif %}</h2>
+    <h2>{% if form_type == 'Edit' %}Edit Project{% else %}Launch Your New Campaign{% endif %}</h2>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -13,7 +13,7 @@
                 {{ field }}
             </div>
         {% endfor %}
-        <button type="submit" class="submit-btn">{% if form_type == 'تعديل' %}حفظ التعديلات{% else %}أنشئ المشروع{% endif %}</button>
+        <button type="submit" class="submit-btn">{% if form_type == 'Edit' %}Save Changes{% else %}Create Project{% endif %}</button>
     </form>
 </div>
 {% endblock %}

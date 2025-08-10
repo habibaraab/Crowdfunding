@@ -1,15 +1,15 @@
 {% extends "projects/base.html" %}
 
-{% block title %}تأكيد الحذف{% endblock %}
+{% block title %}Confirm Deletion{% endblock %}
 
 {% block content %}
 <div class="auth-container">
-    <h2>هل أنت متأكد؟</h2>
-    <p>أنت على وشك حذف المشروع: "{{ project.title }}" بشكل نهائي.</p>
+    <h2>Are you sure?</h2>
+    <p>You are about to permanently delete the project: "{{ project.title }}".</p>
     <form method="POST">
         {% csrf_token %}
-        <button type="submit" class="submit-btn" style="background-color: #dc3545;">نعم، قم بالحذف</button>
-        <a href="{% url 'project_detail' project.id %}" class="nav-btn" style="margin-top: 10px; background-color: #6c757d; display: block;">إلغاء</a>
+        <button type="submit" class="submit-btn" style="background-color: #dc3545;">Yes, delete</button>
+        <a href="{% url 'project_detail' project.id %}" class="nav-btn" style="margin-top: 10px; background-color: #6c757d; display: block;">Cancel</a>
     </form>
 </div>
 {% endblock %}

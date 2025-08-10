@@ -1,25 +1,25 @@
 {% extends "projects/base.html" %}
 
-{% block title %}تصفح المشاريع{% endblock %}
+{% block title %}Browse Projects{% endblock %}
 
 {% block content %}
 <div class="project-list-container">
-    <h2>المشاريع المتاحة</h2>
+    <h2>Available Projects</h2>
 
     <div class="search-container">
         <form method="GET" action="{% url 'project_list' %}">
-            <label for="search_date">ابحث عن المشاريع النشطة في تاريخ:</label>
+            <label for="search_date">Search for active projects on date:</label>
             <input type="date" id="search_date" name="search_date" value="{{ search_date|default:'' }}" class="search-date-input">
             
-            <button type="submit" class="nav-btn">ابحث</button>
+            <button type="submit" class="nav-btn">Search</button>
             
             {% if search_date %}
-                <a href="{% url 'project_list' %}" class="clear-search-link">إلغاء البحث</a>
+                <a href="{% url 'project_list' %}" class="clear-search-link">Clear Search</a>
             {% endif %}
         </form>
     </div>
     {% if user.is_authenticated %}
-        <a href="{% url 'create_project' %}" class="nav-btn" style="margin-bottom: 20px; display: inline-block;">+ أضف مشروع جديد</a>
+        <a href="{% url 'create_project' %}" class="nav-btn" style="margin-bottom: 20px; display: inline-block;">+ Add New Project</a>
     {% endif %}
 
     <div class="project-grid">
@@ -31,19 +31,19 @@
                     {% endif %}
                     <div class="card-content">
                         <h3>{{ project.title }}</h3>
-                        <p class="project-creator">بواسطة: {{ project.creator.username }}</p>
+                        <p class="project-creator">By: {{ project.creator.username }}</p>
                         <p class="project-details">{{ project.details|truncatewords:20 }}</p>
                         <div class="funding-info">
-                            <p><strong>المستهدف:</strong> {{ project.total_target }} جنيه</p>
+                            <p><strong>Target:</strong> {{ project.total_target }} EGP</p>
                         </div>
                     </div>
                 </div>
             </a>
         {% empty %}
             {% if search_date %}
-                <p>لا توجد مشاريع نشطة في هذا التاريخ.</p>
+                <p>No active projects on this date.</p>
             {% else %}
-                <p>لا توجد مشاريع متاحة حالياً.</p>
+                <p>No projects available at the moment.</p>
             {% endif %}
         {% endfor %}
     </div>
