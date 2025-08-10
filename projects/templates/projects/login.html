@@ -5,14 +5,23 @@
 {% block content %}
 <div class="auth-container">
     <h2>تسجيل الدخول</h2>
+
     <form method="POST">
         {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="error-box">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
         {% for field in form %}
             <div class="input-group">
                 {{ field.label_tag }}
                 {{ field }}
                 {% if field.errors %}
-                    <small style="color: red;">{{ field.errors|striptags }}</small>
+                    <small class="field-error">{{ field.errors|striptags }}</small>
                 {% endif %}
             </div>
         {% endfor %}

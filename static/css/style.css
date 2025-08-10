@@ -157,42 +157,64 @@ body {
 }
 
 /* تصميم المحتوى الرئيسي ليملأ المساحة المتاحة */
+/* --- تعديل المحتوى الرئيسي ليعمل مع كل الصفحات --- */
 .main-content {
-    flex: 1; /* يجعل المحتوى يمتد ليملأ الفراغ بين الهيدر والفوتر */
     width: 100%;
+    flex: 1; /* يسمح للمحتوى بالنمو لملء المساحة المتاحة */
+    padding: 40px 5%; /* يضيف مساحة تنفس حول المحتوى */
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
+    /* ملاحظة: لقد أزلنا التوسيط من هنا ليعمل مع تصميم الرئيسية */
 }
 
 
-/* --- تصميم الهيدر والنافبار --- */
+/* ==================== تصميم النافبار والفوتر المحدث ==================== */
+
+/* --- تصميم الهيدر والنافبار (بتصميم ثابت وغير شفاف) --- */
 .main-header {
     width: 100%;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 0 5%;
+    padding: 0 4%;
     box-sizing: border-box;
-    position: sticky; /* يجعله يثبت في الأعلى عند التمرير */
+    position: fixed; /* تثبيت النافبار في الأعلى */
     top: 0;
+    left: 0;
     z-index: 1000;
+    transition: height 0.4s ease;
+    
+    /* --- التعديل الرئيسي: خلفية بيضاء وظل ثابت --- */
+    background-color: #ffffff;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.07);
 }
 
 .main-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 75px; /* ارتفاع ثابت للنافبار */
+}
+
+.nav-group-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 24px;
     font-weight: 700;
     color: var(--primary-color);
     text-decoration: none;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    stroke-width: 1.5;
+    color: var(--primary-color);
 }
 
 .nav-links {
@@ -203,7 +225,7 @@ body {
 }
 
 .nav-links li {
-    margin: 0 15px;
+    margin: 0 20px;
 }
 
 .nav-links a {
@@ -211,60 +233,117 @@ body {
     color: var(--text-color);
     font-weight: 600;
     font-size: 16px;
-    transition: color 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
 }
 
-.nav-links a:hover {
-    color: var(--primary-color);
-}
-
-.nav-buttons a {
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    margin-left: 10px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.nav-btn {
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
     background-color: var(--primary-color);
-    color: #fff;
-}
-.nav-btn:hover {
-    background-color: var(--primary-color-hover);
-    color: #fff;
+    transition: width 0.3s ease;
 }
 
-.nav-btn-secondary {
-    background-color: transparent;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+.nav-links a:hover::after {
+    width: 100%;
 }
-.nav-btn-secondary:hover {
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
     background-color: var(--primary-color);
-    color: #fff;
+    transition: width 0.3s ease;
+}
+.nav-links a:hover::after {
+    width: 100%;
+}
+.main-header:not(.scrolled) .nav-links a:hover::after {
+    background-color: white;
 }
 
-/* --- تصميم الفوتر --- */
+
+/* --- تصميم الفوتر الجديد --- */
 .main-footer {
     width: 100%;
-    background-color: #333;
-    color: #f4f7f6;
-    padding: 20px 5%;
-    text-align: center;
+    background-color: #0f172a; /* لون كحلي غامق */
+    color: #94a3b8; /* لون رمادي فاتح للنصوص */
+    padding: 60px 5% 20px 5%;
     box-sizing: border-box;
 }
-
-.footer-content .social-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 10px;
-    transition: color 0.3s ease;
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #334155;
 }
-
-.footer-content .social-links a:hover {
-    color: var(--primary-color);
+.footer-column .footer-logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 15px;
+}
+.footer-column p {
+    line-height: 1.7;
+    margin: 0;
+}
+.footer-column h4 {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+.footer-column ul li a {
+    text-decoration: none;
+    color: #94a3b8;
+    transition: color 0.3s ease, padding-right 0.3s ease;
+}
+.footer-column ul li a:hover {
+    color: white;
+    padding-right: 5px; /* تحريك النص قليلاً لليمين */
+}
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+.social-icons a {
+    display: inline-block;
+    color: #94a3b8;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.social-icons a svg {
+    fill: currentColor;
+    width: 24px;
+    height: 24px;
+}
+.social-icons a:hover {
+    color: white;
+    transform: translateY(-3px);
+}
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
 }
 /* ... (في نهاية ملف style.css) ... */
 
@@ -520,4 +599,260 @@ body {
 
 .clear-search-link:hover {
     color: #dc3545; /* لون أحمر عند المرور */
+}
+/* ==================== تصميم صناديق الأخطاء ==================== */
+.error-box {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.error-box p {
+    margin: 0;
+}
+
+.field-error {
+    color: #721c24;
+    font-weight: 600;
+    display: block;
+    margin-top: 5px;
+}
+/* ==================== تصميم الصفحة الرئيسية الفاخر ==================== */
+
+/* -- متغيرات ألوان جديدة -- */
+:root {
+    --primary-color: #4f46e5; /* بنفسجي-أزرق عصري */
+    --primary-color-hover: #4338ca;
+    --secondary-color: #10b981; /* أخضر زمردي */
+    --background-color: #f8fafc; /* أبيض مائل للرمادي */
+    --surface-color: #ffffff;
+    --text-color: #0f172a; /* أسود مائل للكحلي */
+    --subtle-text-color: #64748b;
+    --border-color: #e2e8f0;
+}
+
+/* تعديل المحتوى الرئيسي */
+.main-content { padding: 0; justify-content: flex-start; align-items: stretch; }
+
+/* --- تصميم قسم الهيرو مع الفيديو --- */
+.hero-section {
+    position: relative; height: 100vh; display: flex;
+    justify-content: center; align-items: center; text-align: center;
+    color: white; overflow: hidden;
+}
+.hero-video-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+}
+.hero-video {
+    width: 100%; height: 100%; object-fit: cover;
+}
+.hero-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4)); z-index: 2;
+}
+.hero-content { position: relative; z-index: 3; padding: 20px; }
+.hero-content h1 {
+    font-size: clamp(3rem, 6vw, 6rem); font-weight: 800; margin-bottom: 1rem;
+    text-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+}
+.hero-content p {
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem); margin-bottom: 2.5rem;
+    max-width: 650px; text-shadow: 0px 2px 8px rgba(0,0,0,0.5);
+}
+.hero-btn.primary {
+    background-color: var(--primary-color); color: white;
+    box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
+}
+.hero-btn.primary:hover { transform: translateY(-3px) scale(1.05); }
+.hero-btn.secondary {
+    background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px);
+    color: white; border: 2px solid white;
+}
+.hero-btn.secondary:hover { background-color: white; color: var(--text-color); }
+
+/* --- تصميم الأقسام العامة --- */
+.section { padding: 100px 5%; width: 100%; box-sizing: border-box; }
+.section-title {
+    text-align: center; font-size: 2.8rem; font-weight: 700;
+    margin-bottom: 60px; color: var(--text-color);
+}
+.section-container { max-width: 1200px; margin: 0 auto; }
+.section.alternate-bg { background-color: #f1f5f9; }
+
+/* --- قسم كيف يعمل (Glassmorphism) --- */
+.how-it-works-section {
+    background-color: var(--text-color);
+    color: white;
+}
+.how-it-works-section .section-title { color: white; }
+.steps-container {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+}
+/* --- تصميم قسم كيف يعمل (Glassmorphism) بتأثيرات حديثة --- */
+
+.how-it-works-section {
+    background-color: var(--text-color);
+    color: white;
+}
+
+.how-it-works-section .section-title {
+    color: white;
+}
+
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+}
+
+.step-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    /* خاصية الانتقال لجعل الحركة ناعمة */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* --- التأثير عند مرور الماوس فوق البطاقة --- */
+.step-card:hover {
+    transform: translateY(-12px); /* رفع البطاقة للأعلى */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25); /* ظل أكثر عمقاً */
+}
+
+.step-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 25px auto;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    /* خاصية الانتقال للأيقونة نفسها */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- التأثير على الأيقونة عندما يتم المرور على البطاقة بالكامل --- */
+.step-card:hover .step-icon {
+    transform: scale(1.15) rotate(-10deg); /* تكبير الأيقونة مع ميلان بسيط */
+}
+
+.step-icon svg {
+    width: 35px;
+    height: 35px;
+    stroke: white;
+}
+
+.step-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.step-card p {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+}
+/* --- تصميم بطاقة المشروع المحدثة --- */
+.project-card {
+    background-color: var(--surface-color);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transform-style: preserve-3d;
+}
+.project-card:hover {
+    transform: perspective(1000px) translateY(-10px) rotateY(-5deg);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+.project-card-image-container { overflow: hidden; }
+.project-image {
+    transition: transform 0.4s ease;
+}
+.project-card:hover .project-image {
+    transform: scale(1.1);
+}
+.card-content h3 { font-weight: 700; }
+.card-content .funding-info { padding-top: 15px; margin-top: 15px; border-top: 1px solid var(--border-color); }
+.card-content .target-text { color: var(--subtle-text-color); font-size: 0.9em; }
+.progress-bar-container-small {
+    height: 8px; background-color: #e2e8f0; border-radius: 8px;
+    margin-bottom: 10px; overflow: hidden;
+}
+.progress-bar-small {
+    height: 100%; background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    border-radius: 8px;
+}
+
+/* --- تصميم قسم CTA --- */
+.cta-banner-section { text-align: center; }
+
+/* --- كلاسات الحركات (Animations) --- */
+.animate-on-scroll {
+    opacity: 0;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.animate-on-scroll.slide-up { transform: translateY(50px); }
+.animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+/* --- إضافة تأخير زمني متتابع لبطاقات المشاريع --- */
+.project-grid .animate-on-scroll:nth-child(1) {
+    transition-delay: 0.1s;
+}
+.project-grid .animate-on-scroll:nth-child(2) {
+    transition-delay: 0.2s;
+}
+.project-grid .animate-on-scroll:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+/* --- توسيط الحاويات الخاصة بالصفحات --- */
+
+/* هذا يطبق على حاوية (صفحات الدخول، التسجيل، إنشاء مشروع، تفاصيل مشروع) */
+.auth-container, .project-detail-container {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* هذا يطبق على حاوية صفحة "تصفح المشاريع" */
+.project-list-container {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* هذا يطبق على أقسام الصفحة الرئيسية لجعلها بعرض الشاشة الكامل */
+.main-content > .section {
+    width: calc(100% + 10%); /* تعويض الـ padding الموجود في main-content */
+    margin-left: -5%;
+    margin-right: -5%;
+}
+.main-content > .hero-section {
+    width: 100vw; /* عرض الشاشة بالكامل */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+/* --- حل مشكلة تداخل النافبار مع المحتوى --- */
+
+/* 1. تطبيق مساحة علوية على كل الصفحات بشكل عام */
+.main-content {
+    padding-top: 100px; /* مساحة تساوي ارتفاع النافبار + هامش إضافي */
+}
+
+/* 2. إلغاء هذه المساحة من الصفحة الرئيسية فقط */
+body.page-home .main-content {
+    padding-top: 0;
 }

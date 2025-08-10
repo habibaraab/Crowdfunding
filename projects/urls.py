@@ -15,7 +15,7 @@ urlpatterns = [
      path('projects/<int:project_id>/', project_views.project_detail, name='project_detail'),
     path('projects/<int:project_id>/edit/', project_views.edit_project, name='edit_project'), # <-- أضف هذا
     path('projects/<int:project_id>/delete/', project_views.delete_project, name='delete_project'), # <-- أضف هذا
-        path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
+    path('logout/', project_views.logout_view, name='logout'),
 
 ]
 

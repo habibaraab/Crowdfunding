@@ -33,7 +33,13 @@ from django.shortcuts import render, redirect
 # ... (دالة الـ register)
 
 def home(request):
-    return render(request, 'projects/home.html')
+    # جلب آخر 3 مشاريع تمت إضافتها لعرضها كمشاريع مميزة
+    featured_projects = Project.objects.order_by('-id')[:3]
+    context = {
+        'featured_projects': featured_projects
+    }
+    return render(request, 'projects/home.html', context)
+
 
 
 # projects/views.py
@@ -89,14 +95,16 @@ from .forms import CustomUserCreationForm, ProjectForm, DonationForm # <-- أض�
 # ... (باقي الـ imports)
 
 # لا تنس إضافة هذا الديكوريتور
-@login_required
 def project_detail(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     donation_form = DonationForm()
 
+    # --- معالجة طلبات التبرع ---
     if request.method == 'POST':
-        # هذا الجزء مخصص لمعالجة التبرع فقط
-        # (يجب أن يكون لديك name="donate_form" في زر الإرسال بالنموذج)
+        # التحقق الإضافي لضمان الأمان
+        if not request.user.is_authenticated:
+            return redirect('login')
+            
         if 'donate_form' in request.POST:
             form = DonationForm(request.POST)
             if form.is_valid():
@@ -107,12 +115,12 @@ def project_detail(request, project_id):
                 messages.success(request, 'شكراً لك! تم تسجيل تبرعك بنجاح.')
                 return redirect('project_detail', project_id=project.id)
 
+    # --- عرض الصفحة في الحالة العادية (GET) ---
     context = {
         'project': project,
         'donation_form': donation_form
     }
     return render(request, 'projects/project_detail.html', context)
-
 # projects/views.py
 
 from django.http import HttpResponseForbidden
@@ -147,3 +155,14 @@ def delete_project(request, project_id):
         return redirect('project_list')
         
     return render(request, 'projects/project_confirm_delete.html', {'project': project})
+
+
+from django.contrib.auth import logout
+# ... (باقي أكواد الـ import)
+
+# ... (كل الدوال الأخرى) ...
+
+# === أضف هذه الدالة الجديدة ===
+def logout_view(request):
+    logout(request)
+    return redirect('home')
