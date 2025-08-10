@@ -15,30 +15,28 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-    direction: ltr;
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--background-color);
 }
 
-/* ==================== Page Layout & Sticky Footer Fix ==================== */
-
-
-.main-content {
+main.main-content {
+    flex-grow: 1;
     width: 100%;
-    flex: 1;
-    padding: 100px 5% 40px 5%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 110px 20px 40px 20px;
 }
 
-body.page-home .main-content {
-    padding-top: 0;
+body.page-home main.main-content {
+    display: block;
+    padding: 0;
 }
 
 .auth-container {
@@ -234,14 +232,19 @@ body.page-home .main-content {
 .nav-links a:hover::after {
     width: 100%;
 }
+/* ==================== تصميم الفوتر المحدث بألوان عصرية ==================== */
+
+/* ==================== تصميم الفوتر المحدث بألوان عصرية ==================== */
 
 .main-footer {
     width: 100%;
-    background-color: #0f172a;
-    color: #94a3b8;
+    /* --- التغيير الرئيسي هنا: استخدام درجة داكنة من اللون الأساسي --- */
+    background-color: #3730a3; 
+    color: #cbd5e1; /* لون رمادي فاتح للنصوص العادية */
     padding: 60px 5% 20px 5%;
     box-sizing: border-box;
 }
+
 .footer-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -249,65 +252,74 @@ body.page-home .main-content {
     margin: 0 auto;
     max-width: 1200px;
     padding-bottom: 40px;
-    border-bottom: 1px solid #334155;
+    /* تغيير لون الخط الفاصل */
+    border-bottom: 1px solid #4f46e5; 
 }
+
 .footer-column .footer-logo {
     font-size: 28px;
     font-weight: 700;
-    color: white;
+    color: #ffffff; /* لون أبيض واضح للوجو */
     text-decoration: none;
     display: block;
     margin-bottom: 15px;
 }
+
 .footer-column p {
     line-height: 1.7;
     margin: 0;
 }
+
 .footer-column h4 {
     font-size: 18px;
-    color: white;
+    color: #ffffff; /* لون أبيض للعناوين */
     margin-bottom: 20px;
     font-weight: 600;
 }
+
 .footer-column ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
+
 .footer-column ul li {
     margin-bottom: 10px;
 }
+
 .footer-column ul li a {
     text-decoration: none;
-    color: #94a3b8;
-    transition: color 0.3s ease, padding-left 0.3s ease;
+    color: #cbd5e1; /* لون رمادي فاتح للروابط */
+    transition: color 0.3s ease, padding-right 0.3s ease;
 }
+
 .footer-column ul li a:hover {
-    color: white;
-    padding-left: 5px;
+    color: #ffffff; /* يصبح الرابط أبيض عند المرور عليه */
+    padding-right: 5px;
 }
+
 .social-icons {
     display: flex;
     gap: 15px;
 }
+
 .social-icons a {
     display: inline-block;
-    color: #94a3b8;
+    color: #cbd5e1; /* لون الأيقونات الافتراضي */
     transition: transform 0.3s ease, color 0.3s ease;
 }
+
 .social-icons a svg {
     fill: currentColor;
     width: 24px;
     height: 24px;
 }
+
 .social-icons a:hover {
-    color: white;
+    color: #ffffff; /* تصبح الأيقونة بيضاء عند المرور عليها */
     transform: translateY(-3px);
 }
-.footer-bottom {
-    text-align: center;
-    padding-top: 20px;
-}
+
 
 .project-list-container {
     width: 80%;

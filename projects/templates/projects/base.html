@@ -1,42 +1,44 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}CrowdFunding{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body class="{% block body_class %}{% endblock %}" style="text-align: left; direction: ltr;">
+<body class="{% block body_class %}{% endblock %}">
     <header class="main-header">
-       <nav class="main-nav" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="nav-group-left" style="display: flex; align-items: center;">
+        <nav class="main-nav">
+            <div class="nav-group-left">
                 <a href="{% url 'home' %}" class="logo">
-                    <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M7 6h10a2 2 0 012 2v8a2 2 0 01-2 2H7a2 2 0 01-2-2V8a2 2 0 012-2z" />
-                    </svg>
-                    <span>CrowdFund</span>
-                </a>
-                <ul class="nav-links" style="display: flex; list-style: none; margin: 0 20px; padding: 0;">
-                    <li style="margin: 0 10px;"><a href="{% url 'home' %}">Home</a></li>
-                    <li style="margin: 0 10px;"><a href="{% url 'project_list' %}">Browse Projects</a></li>
-                    <li style="margin: 0 10px;"><a href="{% url 'create_project' %}">Start a Project</a></li> 
+    <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v4h-2zm0 6h2v2h-2z" />
+    </svg>
+    
+    <span>CrowdFund</span>
+</a>
+                <ul class="nav-links">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'project_list' %}">Browse Projects</a></li>
+                    <li><a href="{% url 'create_project' %}">Start a Project</a></li> 
                 </ul>
             </div>
 
-            <div class="nav-buttons" style="display: flex; align-items: center;">
+            <div class="nav-buttons">
                 {% if user.is_authenticated %}
-                    <span class="nav-welcome" style="margin-right: 15px;">Welcome, {{ user.username }}</span>
+                    <span class="nav-welcome">Welcome, {{ user.username }}</span>
                     <a href="{% url 'logout' %}" class="nav-btn-secondary">Logout</a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="nav-btn" style="margin-right: 10px;">Login</a>
+                    <a href="{% url 'login' %}" class="nav-btn">Login</a>
                     <a href="{% url 'register' %}" class="nav-btn-secondary">Sign Up</a>
                 {% endif %}
             </div>
         </nav>
     </header>
 
-    <main class="main-content" style="text-align: left;">
+    <main class="main-content">
         {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -49,8 +51,8 @@
         {% endblock %}
     </main>
 
-    <footer class="main-footer" style="text-align: left;">
-        <div class="footer-container" style="display: flex; justify-content: space-around; text-align: left;">
+    <footer class="main-footer">
+        <div class="footer-container">
             <div class="footer-column about">
                 <a href="{% url 'home' %}" class="footer-logo">CrowdFund</a>
                 <p>A platform to support innovative ideas and ambitious projects. We believe in the power of the community to make dreams come true.</p>
@@ -86,10 +88,11 @@
                 </div>
             </div>
         </div>
-        <div class="footer-bottom" style="text-align: center;">
+        <div class="footer-bottom">
             <p>&copy; 2025 CrowdFund. All rights reserved.</p>
         </div>
     </footer>
+    
     <script>
         const header = document.querySelector('.main-header');
         window.addEventListener('scroll', () => {
