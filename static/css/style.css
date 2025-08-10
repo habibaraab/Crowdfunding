@@ -220,6 +220,15 @@ body.page-home main.main-content {
     color: #ffffff; /* يصبح الرابط أبيض عند المرور عليه */
     padding-right: 5px;
 }
+.footer-column.links,
+.footer-column.social {
+    text-align: center;
+}
+
+/* This rule centers the social media icons within their container */
+.social-icons {
+    justify-content: center;
+}
 
 .social-icons {
     display: flex;
