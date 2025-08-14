@@ -1301,7 +1301,7 @@ body.page-home main.main-content {
     gap: 40px;
 }
 
-.logo {
+/* .logo {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -1319,6 +1319,20 @@ body.page-home main.main-content {
     height: 32px;
     color: var(--primary-color);
     transition: transform 0.4s ease;
+} */
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #667eea;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo i {
+    color: #764ba2;
 }
 
 .logo:hover .logo-icon {
@@ -1448,3 +1462,9 @@ body.page-home main.main-content {
 .main-header.scrolled .main-nav {
     height: 70px;
 }
+
+/* .logo i {
+    color: #764ba2;
+} */
+
+

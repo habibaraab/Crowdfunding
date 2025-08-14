@@ -1,0 +1,13 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- خلفية بيضاء -->
+  <rect width="32" height="32" fill="white"/>
+  <!-- يد تبرع بلون #672CE6 -->
+  <path d="M10 20 L14 16 L18 20 L16 14 L20 10 L14 12 L10 6 L12 12 L6 14 Z" fill="#672CE6"/>
+  <!-- قلب صغير #672CE6 (رمز الدعم) -->
+  <path d="M12 8 L10 10 Q10 12 12 14 Q14 16 16 14 Q18 12 18 10 L16 8 Q16 6 14 6 Q12 6 12 8 Z" fill="#672CE6"/>
+  <!-- خطوط زخرفية لإضافة تميز -->
+  <line x1="6" y1="14" x2="10" y2="20" stroke="#672CE6" stroke-width="1"/>
+  <line x1="18" y1="20" x2="22" y2="14" stroke="#672CE6" stroke-width="1"/>
+  <!-- دائرة صغيرة #672CE6 (يمكن تكون رمز نقود) -->
+  <circle cx="14" cy="10" r="2" fill="#672CE6"/>
+</svg>

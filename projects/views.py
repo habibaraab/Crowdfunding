@@ -68,6 +68,7 @@ def project_detail(request, project_id):
         if 'donate_form' in request.POST:
             form = DonationForm(request.POST)
             if form.is_valid():
+                
                 donation = form.save(commit=False)
                 donation.donator = request.user
                 donation.project = project
